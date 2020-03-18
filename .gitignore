@@ -1,0 +1,14 @@
+/target
+aom_av1_encoder_sse2.lib
+aom_av1_encoder_ssse3.lib
+aom_dsp_common_sse2.lib
+aom_dsp_common_ssse3.lib
+aom_dsp_encoder_avx.lib
+aom_dsp_encoder_sse2.lib
+aom_dsp_encoder_ssse3.lib
+aom_gtest.lib
+aom_ports.lib
+aom_version.lib
+aom.lib
+Cargo.lock
+libavif-container.lib

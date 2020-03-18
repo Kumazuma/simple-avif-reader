@@ -1,0 +1,11 @@
+[package]
+name = "aom-binding-test"
+version = "0.1.0"
+authors = ["Damezuma <qweads12@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+libc = "0.2"
+aom-sys = "0.1.3"
