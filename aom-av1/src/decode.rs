@@ -35,7 +35,7 @@ impl Av1Decoder{
         let mut s:AomCodecIterT= std::ptr::null();
         unsafe{
             let res = aom_codec_get_frame(&mut self.decode_context, &s);
-            if res == std::ptr::null(){
+            if res == std::ptr::null_mut(){
                 return None;
             }
             return Some(Image::from_aom_image_t(res));

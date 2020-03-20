@@ -160,41 +160,41 @@ pub(crate)  struct AomImage{
     fb_priv:pvoid,
 }
 #[repr(C)]
-enum AomBitDepth {
+pub(crate) enum AomBitDepth {
     AomBits8 = 8,
     AomBits10 = 10,
     AomBits12 = 12,
 }
 #[repr(C)]
-struct AomRational {
+pub(crate) struct AomRational {
     num:int,
     den:int
 }
 #[repr(C)]
-enum AomEncPass {
+pub(crate) enum AomEncPass {
     AomRcOnePass = 0,
     AomRcFirstPass = 1,
     AomRcLastPass = 2
 }
 #[repr(C)]
-enum AomRcMode {
+pub(crate) enum AomRcMode {
     AomVBR = 0,
     AomCBR = 1,
     AomCQ  = 2, 
     AomQ   = 3   
 }
 #[repr(C)]
-struct AomFixedBuf {
+pub(crate) struct AomFixedBuf {
     buf:*mut u8,
     sz:size_t
 }
 #[repr(C)]
-enum AomKfMode {
+pub(crate) enum AomKfMode {
     AomKfAuto = 1,   
     AomKfDisable = 0
 }
 #[repr(C)]
-struct CfgOptions {
+pub(crate) struct CfgOptions {
 init_by_cfg_file:uint,
 super_block_size:uint,
 max_partition_size:uint,
@@ -232,7 +232,7 @@ reduced_reference_set:uint,
 reduced_tx_type_set:uint,
 }
 #[repr(C)]
-struct AomCodecEncCfg {
+pub(crate) struct AomCodecEncCfg {
     g_usage:uint,
     g_threads:uint,
     g_profile:uint,
@@ -286,6 +286,7 @@ struct AomCodecEncCfg {
     tile_heights:[int;64],
     encoder_cfg:CfgOptionsT
   }
+pub(crate) type AomCodecEncCfgT = AomCodecEncCfg;
 pub(crate) type CfgOptionsT =CfgOptions;
 pub(crate) type AomKfModeT = AomKfMode;
 pub(crate) type AomFixedBufT = AomFixedBuf;

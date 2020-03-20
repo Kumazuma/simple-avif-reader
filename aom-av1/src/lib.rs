@@ -21,9 +21,9 @@ extern "C"{
     fn aom_img_free(img: pvoid);
     fn aom_codec_destroy(ctx:*mut aom_codec_ctx);
     fn aom_codec_decode(ctx:*mut aom_codec_ctx, data:*const u8, len: libc::size_t, _:pvoid)->AomCodecErrT;
-    fn aom_codec_get_frame(ctx:*mut aom_codec_ctx, iter: *const AomCodecIterT)->*const AomImageT;
+    fn aom_codec_get_frame(ctx:*mut aom_codec_ctx, iter: *const AomCodecIterT)->*mut AomImageT;
     fn aom_codec_dec_init_ver(ctx:*mut aom_codec_ctx, iface:pvoid, cfg:pvoid, flags:long, ver:int)->AomCodecErrT;
-    fn aom_codec_enc_config_default(ctx:*mut aom_codec_ctx, cfg:*mut AomCodeEncCfgT, reserved:uint)->AomCodecErrT;
+    fn aom_codec_enc_config_default(ctx:*mut aom_codec_ctx, cfg:*mut AomCodecEncCfgT, reserved:uint)->AomCodecErrT;
 }
 pub type Image = image::Image;
 impl Copy for AomColorPrimaries{}

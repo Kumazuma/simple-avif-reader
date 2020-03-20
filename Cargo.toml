@@ -11,5 +11,5 @@ target="x86_64-pc-windows-msvc"
 libc = "0.2"
 avif-parser = {path="./avif-parser"}
 aom-av1-sys  = {path="./aom-av1"}
-cvt_yuv_rgb = {path="../rs-simple-cvt-yuv-rgb/cvt_yuv_rgb"}
+cvt_yuv_rgb = {path="../rs-simple-cvt-yuv-rgb"}
 png = "0.16.1"
