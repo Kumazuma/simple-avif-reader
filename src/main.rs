@@ -9,9 +9,18 @@ use cvt_yuv_rgb::*;
 fn map_err<T:std::fmt::Debug>(err:T){
     eprintln!("{:?}", err);
 }
-fn main()->Result<(), ()>{
+fn main()->Result<(),()>{
+    let mut image =
+    aom_av1_sys::Image::new_as_yuv420(640, 480)
+    .ok_or("failed create image")
+    .map_err(map_err);
+    let mut s = Vec::with_capacity(640 * 480 * 3);
+    s.resize(640 * 480 * 3, 0xFFu8);
+    return Ok(());
+}
+fn aa()->Result<(), ()>{
 
-    let mut avif_file = File::open("./hato.profile0.8bpc.yuv420.avif").unwrap();
+    let mut avif_file = File::open("./hato.profile2.12bpc.yuv422.avif").unwrap();
     let mut avif_data  = Vec::new();
     avif_file.read_to_end(&mut avif_data).map_err(map_err)?;
     let avif = avif_parser::parse(Cursor::new(&mut avif_data))?;
@@ -21,10 +30,7 @@ fn main()->Result<(), ()>{
         let tmp = &avif_data.as_slice()[item.0 as usize .. (item.0 + item.1) as usize];
         decoder.decode(tmp).map_err(map_err)?;
         let image = decoder.get_frame().ok_or(())?;
-        let mut file = File::create("./result.png").map_err(map_err)?;
-        let mut png_image = png::Encoder::new(file, image.d_width(), image.d_height());
-        png_image.set_color(png::ColorType::RGB);
-        png_image.set_depth(png::BitDepth::Eight);
+        
         let yuv = YUVImageBuilder::new()
         .plane_y(image.y_plane(), image.y_stride())
         .plane_u(image.u_plane(), image.u_stride())
@@ -43,10 +49,13 @@ fn main()->Result<(), ()>{
                 unimplemented!();
             }
         };
+        let mut file = File::create("./result.png").map_err(map_err)?;
+        let mut png_image = png::Encoder::new(file, image.d_width(), image.d_height());
+        png_image.set_color(png::ColorType::RGB);
+        png_image.set_depth(png::BitDepth::Sixteen);
         let mut writer = png_image.write_header().map_err(map_err)?;
         let mut stream_writer = writer.stream_writer();
-        for (index, color) in RGB24Writer::new(YUV2RGB::new(yuv.iter(), color_prime)).enumerate(){
-            let index= index as u32;
+        for color in RGB48Writer::new(YUV2RGB::new(yuv.iter(), color_prime), 16u8){            
             stream_writer.write(&color).map_err(map_err)?;
         }
         stream_writer.finish().map_err(map_err)?;
